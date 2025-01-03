@@ -259,10 +259,10 @@ const ticketStatus = computed(() => {
   const startDate = new Date(page.value.tickets.startDate)
   const endDate = new Date(page.value.tickets.endDate)
   
-  if (now < startDate) return 'Coming Soon'
-  if (now > endDate) return 'Closed'
-  if (!page.value.tickets.available) return 'Sold Out'
-  return 'Available'
+  if (now < startDate || !page.value.tickets.startDate) return 'Em breve'
+  if (now > endDate) return 'Fechado'
+  if (!page.value.tickets.available) return 'Esgotados'
+  return 'Disponíveis'
 })
 
 const ticketDetails = computed(() => {

@@ -63,10 +63,11 @@ const imageUrl = computed(() => {
 })
 
 const hasActiveC4P = computed(() => {
-  if (!props.event.c4p) return false
+  if (!props.event.c4p || !props.event.c4p.startDate || !props.event.c4p.endDate) return false
   const now = new Date()
   const endDate = new Date(props.event.c4p.endDate)
-  return now <= endDate
+  const startDate = new Date(props.event.c4p.startDate)
+  return now <= endDate && now >= startDate
 })
 
 const hasAvailableTickets = computed(() => {
