@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/content',
     '@nuxtjs/color-mode',
+    '@nuxt/fonts',
     'nuxt-og-image',
     '@stefanobartoletti/nuxt-social-share'
   ],

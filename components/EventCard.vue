@@ -7,12 +7,12 @@
       <img :src="imageUrl" :alt="event.name" class="w-full h-48 object-cover">
       <div class="p-4 pb-16">
         <h3 class="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">{{ event.name }}</h3>
-         <div class="flex items-center gap-2 ">
+         <div class="flex items-center gap-2 text-text-primary-light dark:text-text-primary-dark">
                   <CalendarIcon class="w-5 h-5"/>
                   <span>{{ formatDateRange(event.startDate, event.endDate) }}</span>
                 </div>
         
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 text-text-primary-light dark:text-text-primary-dark">
                   <MapPinIcon class="w-5 h-5"/>
                   <span>{{ event.city }} - {{ event.location }}</span>
                 </div>
