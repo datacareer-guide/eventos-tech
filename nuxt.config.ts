@@ -41,7 +41,6 @@ export default defineNuxtConfig({
     viewer: true,
   },
   socialShare: {
-    baseUrl: 'https://www.yoursite.com' // required!
-    // other optional module options
+    baseUrl: 'https://eventos.cadumagalhaes.dev'
   }
 })
