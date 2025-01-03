@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col bg-background-light dark:bg-background-dark">
     <AppHeader />
-    <main class="container mx-auto px-4 flex-grow">
+    <main class="container mx-auto px-4 flex-grow pt-16">
       <slot />
     </main>
     <AppFooter />

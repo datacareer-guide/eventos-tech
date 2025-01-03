@@ -90,24 +90,19 @@
                     <dd class="font-medium">{{ page.tickets.couponCodes.join(', ') }}</dd>
                   </div>
                 </dl>
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <p class="text-gray-600 dark:text-gray-400 flex-grow">
-                    {{ ticketDetails }}
-                  </p>
-                  <div class="flex gap-4 whitespace-nowrap">
-                    <a v-if="hasTickets" 
-                       :href="page.tickets.link" 
-                       class="inline-flex items-center px-6 py-3 text-lg bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl">
-                      Conseguir Ingresso
-                      <ArrowRightIcon class="w-5 h-5 ml-2" />
-                    </a>
-                    <a v-else-if="page.tickets?.link"
-                       :href="page.tickets.link"
-                       class="inline-flex items-center px-6 py-3 text-lg border border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200 font-semibold">
-                      Saiba mais
-                      <ArrowRightIcon class="w-5 h-5 ml-2" />
-                    </a>
-                  </div>
+                <div class="flex justify-end">
+                  <a v-if="hasTickets" 
+                     :href="page.tickets.link" 
+                     class="inline-flex items-center px-6 py-3 text-lg bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl">
+                    Conseguir Ingresso
+                    <ArrowRightIcon class="w-5 h-5 ml-2" />
+                  </a>
+                  <a v-else-if="page.tickets?.link"
+                     :href="page.tickets.link"
+                     class="inline-flex items-center px-6 py-3 text-lg border border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200 font-semibold">
+                    Saiba mais
+                    <ArrowRightIcon class="w-5 h-5 ml-2" />
+                  </a>
                 </div>
               </div>
 
@@ -165,11 +160,6 @@
                     <dd class="font-medium">{{ page.submitter }}</dd>
                   </div>
                 </dl>
-
-                <div class="mt-8" >
-                  <h2 class="text-2xl font-bold mb-4">Compartilhe nas redes sociais</h2>
-                  <Share />
-                </div>
               </div>
             </div>
           </div>
@@ -179,6 +169,10 @@
             <div class="sticky top-4">
               <h2 class="text-xl font-bold mb-4 text-text-primary-light dark:text-text-primary-dark">Event Timeline</h2>
               <EventTimeline :event="page" />
+              <div class="mt-16">
+                <h2 class="text-2xl font-bold mb-4">Compartilhe nas redes sociais</h2>
+                <Share />
+              </div>
             </div>
           </div>
         </div>
