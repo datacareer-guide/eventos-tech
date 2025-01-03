@@ -7,7 +7,7 @@
       :network="network"
       :styled="true"
       :label="false"
-      class="rounded text-white"
+      class="rounded text-white inline-flex"
     />
   </div>
 </template>

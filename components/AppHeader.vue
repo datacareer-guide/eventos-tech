@@ -24,7 +24,7 @@
 <script setup lang="ts">
 const menuItems = [
   { text: 'Eventos', to: '/' },
-  { text: 'Submeter evento', to: '/submit' },
+  { text: 'Submeter evento', to: 'https://github.com/datacareer-guide/eventos-tech/issues/new' },
   { text: 'Sobre', to: '/sobre' }
 ]
 </script>

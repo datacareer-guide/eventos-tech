@@ -24,7 +24,15 @@ export default defineNuxtConfig({
     documentDriven: true
   },
   nitro: {
-    preset: 'github-pages'
+    preset: 'github-pages',
+    prerender: {
+      failOnError: false,
+      ignore: [
+        '/api/_content',
+        '/assets/builds'
+      ]
+    }
+  
   },
   compatibilityDate: '2025-01-01',
   devtools: { enabled: true },
