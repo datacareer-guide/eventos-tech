@@ -1,0 +1,158 @@
+name: New Event
+description: Submit a new tech event
+title: "[Event]: "
+labels: ["event"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Nome do evento
+    validations:
+      required: true
+
+  - type: input
+    id: startDate
+    attributes:
+      label: Data de início
+      description: "Format: YYYY-MM-DDTHH:mm:ss"
+    validations:
+      required: true
+
+  - type: input
+    id: endDate
+    attributes:
+      label: Data de término
+      description: "Format: YYYY-MM-DDTHH:mm:ss"
+    validations:
+      required: true
+
+  - type: input
+    id: city
+    attributes:
+      label: Cidade
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Local
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: isFree
+    attributes:
+      label: Esse evento é grátis?
+      options:
+        - label: Yes
+
+  - type: input
+    id: image
+    attributes:
+      label: Imagem do evento
+      description: "URL da imagem do evento"
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Categorias
+      multiple: true
+      options:
+        - frontend
+        - backend
+        - mobile
+        - devops
+        - cloud
+        - data
+        - ai
+        - security
+        - ux
+        - vue
+        - react
+        - angular
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: "Adicione os links do evento (Website, Discord, GitHub, etc)"
+      value: |
+        - title: "Website"
+          url: ""
+          icon: "GlobeAltIcon"
+
+  - type: input
+    id: tickets_link
+    attributes:
+      label: Link para compra de ingressos
+
+  - type: input
+    id: tickets_startDate
+    attributes:
+      label: Data de início da venda de ingressos
+      description: "Format: YYYY-MM-DDTHH:mm:ss"
+
+  - type: input
+    id: tickets_endDate
+    attributes:
+      label: Data de término da venda de ingressos
+      description: "Format: YYYY-MM-DDTHH:mm:ss"
+
+  - type: input
+    id: tickets_price
+    attributes:
+      label: Preço do ingresso
+      description: "Em reais, sem símbolo"
+
+  - type: input
+    id: tickets_coupon
+    attributes:
+      label: Cupons de desconto
+      description: "Separe múltiplos cupons por vírgula"
+
+  - type: input
+    id: c4p_link
+    attributes:
+      label: Link para Call for Papers
+
+  - type: textarea
+    id: c4p_description
+    attributes:
+      label: Descrição do Call for Papers
+
+  - type: textarea
+    id: c4p_requirements
+    attributes:
+      label: Requisitos para submissão
+      description: "Um requisito por linha"
+
+  - type: textarea
+    id: c4p_suggestions
+    attributes:
+      label: Sugestões de temas
+      description: "Uma sugestão por linha"
+
+  - type: input
+    id: c4p_startDate
+    attributes:
+      label: Data de início do CFP
+      description: "Format: YYYY-MM-DDTHH:mm:ss"
+
+  - type: input
+    id: c4p_endDate
+    attributes:
+      label: Data de término do CFP
+      description: "Format: YYYY-MM-DDTHH:mm:ss"
+
+  - type: input
+    id: submitter
+    attributes:
+      label: Seu usuário do GitHub
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição do evento

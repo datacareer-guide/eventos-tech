@@ -1,0 +1,127 @@
+name: Create Event PR from Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-pr:
+    if: contains(github.event.issue.labels.*.name, 'event')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create event file from issue
+        id: create-event
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = JSON.parse(issue.body);
+            
+            const year = body.startDate.substring(0, 4);
+            const fileName = body.name
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/(^-|-$)/g, '');
+            
+            // Parse links from textarea to YAML format
+            const links = body.links ? body.links.split('\n')
+              .filter(line => line.trim())
+              .map(line => line.trim()) : [];
+
+            // Parse requirements and suggestions to arrays
+            const requirements = body.c4p_requirements ? body.c4p_requirements.split('\n')
+              .filter(line => line.trim())
+              .map(line => `    - "${line.trim()}"`)
+              .join('\n') : '';
+
+            const suggestions = body.c4p_suggestions ? body.c4p_suggestions.split('\n')
+              .filter(line => line.trim())
+              .map(line => `    - "${line.trim()}"`)
+              .join('\n') : '';
+
+            // Parse coupon codes to array
+            const coupons = body.tickets_coupon ? body.tickets_coupon.split(',')
+              .map(code => `    - ${code.trim()}`)
+              .join('\n') : '';
+
+            const content = `---
+            name: ${body.name}
+            startDate: "${body.startDate}"
+            endDate: "${body.endDate}"
+            city: ${body.city}
+            location: ${body.location}
+            isFree: ${body.isFree?.includes('Yes') ? 'true' : 'false'}
+            submitter: ${body.submitter || ''}
+            image: "${body.image || ''}"
+            category:
+            ${body.category?.map(cat => `  - ${cat}`).join('\n') || ''}
+            links:
+            ${links}
+            tickets:
+              link: ${body.tickets_link || ''}
+              startDate: "${body.tickets_startDate || ''}"
+              endDate: "${body.tickets_endDate || ''}"
+              price: ${body.tickets_price || ''}
+              available: true
+              couponCodes:
+            ${coupons}
+            c4p:
+              link: ${body.c4p_link || ''}
+              description: "${body.c4p_description || ''}"
+              requirements:
+            ${requirements}
+              suggestions:
+            ${suggestions}
+              startDate: "${body.c4p_startDate || ''}"
+              endDate: "${body.c4p_endDate || ''}"
+            ---
+
+            # ${body.name}
+
+            ${body.description || ''}`;
+            
+            // Create new branch
+            const branchName = `event/${fileName}`;
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/heads/${branchName}`,
+              sha: context.sha
+            });
+            
+            // Create file
+            await github.rest.repos.createOrUpdateFileContents({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              path: `content/events/${year}/${fileName}.md`,
+              message: `Add event: ${body.name}`,
+              content: Buffer.from(content).toString('base64'),
+              branch: branchName
+            });
+            
+            // Create PR
+            const pr = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Event: ${body.name}`,
+              body: `Closes #${issue.number}`,
+              head: branchName,
+              base: 'main',
+              draft: true
+            });
+
+            return pr.data.number;
+
+      - name: Comment on Issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = steps['create-event'].outputs.result;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `Created draft PR #${prNumber} for this event.`
+            });
