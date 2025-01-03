@@ -10,7 +10,8 @@ export default defineNuxtConfig({
   ],
   css: [],
   colorMode: {
-    classSuffix: ''
+    classSuffix: '',
+    preference: 'light',
   },
   app: {
     baseURL: '/',
