@@ -2,6 +2,9 @@ name: New Event
 description: Submit a new tech event
 title: "[Event]: "
 labels: ["event"]
+projects: ["datacareer-guide/eventos-tech"]
+assignees:
+  - 1cadumagalhaes
 body:
   - type: input
     id: name
